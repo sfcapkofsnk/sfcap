@@ -1,493 +1,294 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>臺南市永康區永康國民小學 - 教職員午餐登記系統</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts: Noto Sans TC -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f8fafc;
-        }
-        .meal-card-selected {
-            border-color: #059669 !important;
-            background-color: #ecfdf5 !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>臺南市永康區永康國民小學 - 教職員午餐登記系統</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+<body class="bg-slate-50 min-h-screen pb-12">
 
-    <!-- Header Section -->
-    <header class="bg-emerald-700 text-white shadow-md">
-        <div class="max-w-5xl mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3.5">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-emerald-700 shadow-sm">
-                    <i class="fa-solid fa-utensils text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold tracking-wide">臺南市永康區永康國民小學</h1>
-                    <p class="text-emerald-100 text-xs md:text-sm mt-0.5">教職員午餐登記系統</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <button id="toggle-config-btn" onclick="toggleConfigModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-full text-xs transition flex items-center gap-1 shadow">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>串接設定</span>
-                </button>
-            </div>
+  <header class="bg-emerald-700 text-white shadow-md mb-8">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-4">
+        <div class="bg-white text-emerald-700 p-3 rounded-full text-2xl">
+          <i class="fa-solid fa-utensils"></i>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-grow">
-        
-        <!-- Stats Bar -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200/80 flex items-center justify-between">
-                <div>
-                    <p class="text-slate-500 text-xs font-medium">已登記總人數</p>
-                    <p id="stat-total" class="text-2xl font-bold text-slate-800 mt-1">0 <span class="text-sm font-normal text-slate-500">人</span></p>
-                </div>
-                <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-slate-600 text-lg">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-            </div>
-
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200/80 flex items-center justify-between">
-                <div>
-                    <p class="text-amber-600 text-xs font-medium">葷食登記數</p>
-                    <p id="stat-meat" class="text-2xl font-bold text-amber-700 mt-1">0 <span class="text-sm font-normal text-slate-500">份</span></p>
-                </div>
-                <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600 text-lg">
-                    <i class="fa-solid fa-drumstick-bite"></i>
-                </div>
-            </div>
-
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200/80 flex items-center justify-between">
-                <div>
-                    <p class="text-emerald-600 text-xs font-medium">素食登記數</p>
-                    <p id="stat-veg" class="text-2xl font-bold text-emerald-700 mt-1">0 <span class="text-sm font-normal text-slate-500">份</span></p>
-                </div>
-                <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 text-lg">
-                    <i class="fa-solid fa-leaf"></i>
-                </div>
-            </div>
+        <div>
+          <h1 class="text-2xl font-bold tracking-wide">臺南市永康區永康國民小學</h1>
+          <p class="text-emerald-100 text-sm">教職員午餐登記系統</p>
         </div>
+      </div>
+      <button onclick="toggleSettingsModal()" class="bg-emerald-800 hover:bg-emerald-900 text-emerald-100 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition">
+        <i class="fa-solid fa-gear"></i> 串接設定
+      </button>
+    </div>
+  </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <!-- Form Area (7 Cols) -->
-            <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
-                <div class="border-b border-slate-100 pb-3 mb-5">
-                    <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-pen-to-square text-emerald-600"></i>
-                        填寫登記表單
-                    </h2>
-                </div>
-
-                <form id="lunch-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
-                    <!-- Registration Date Field -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            <i class="fa-regular fa-calendar-check text-emerald-600 mr-1"></i> 登記日期 <span class="text-rose-500">*</span>
-                        </label>
-                        <input type="date" id="reg-date" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm transition">
-                    </div>
-
-                    <!-- Faculty Name & Location Side by Side -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                                <i class="fa-solid fa-user text-emerald-600 mr-1"></i> 教職員姓名 <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" id="teacher-name" placeholder="請輸入姓名" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                                <i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> 用餐地點 <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" id="dining-location" placeholder="例如：301教室、教務處" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm transition">
-                        </div>
-                    </div>
-
-                    <!-- Meal Preference Options -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            <i class="fa-solid fa-bowl-rice text-emerald-600 mr-1"></i> 飲食種類 <span class="text-rose-500">*</span>
-                        </label>
-                        <div class="grid grid-cols-2 gap-3">
-                            <label id="option-meat" onclick="selectDiet('葷食')" class="cursor-pointer border-2 border-slate-200 rounded-xl p-3.5 flex flex-col items-center justify-center gap-1.5 hover:border-emerald-400 transition bg-slate-50/50">
-                                <input type="radio" name="diet-type" value="葷食" checked class="hidden">
-                                <i class="fa-solid fa-drumstick-bite text-2xl text-amber-600"></i>
-                                <span class="font-bold text-sm text-slate-800">葷食</span>
-                            </label>
-
-                            <label id="option-veg" onclick="selectDiet('素食')" class="cursor-pointer border-2 border-slate-200 rounded-xl p-3.5 flex flex-col items-center justify-center gap-1.5 hover:border-emerald-400 transition bg-slate-50/50">
-                                <input type="radio" name="diet-type" value="素食" class="hidden">
-                                <i class="fa-solid fa-seedling text-2xl text-emerald-600"></i>
-                                <span class="font-bold text-sm text-slate-800">素食</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Note Field -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            <i class="fa-solid fa-comment-dots text-emerald-600 mr-1"></i> 特殊需求 / 備註
-                        </label>
-                        <input type="text" id="meal-note" placeholder="例：飯少、不辣等" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm transition">
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl shadow-md shadow-emerald-600/20 transition duration-200 flex items-center justify-center gap-2 text-base">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>送出午餐登記</span>
-                    </button>
-                </form>
-            </div>
-
-            <!-- Summary Table / Realtime List (5 Cols) -->
-            <div class="lg:col-span-5 flex flex-col">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 h-full flex flex-col">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                        <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
-                            <i class="fa-solid fa-list-check text-emerald-600"></i>
-                            最新登記動態
-                        </h3>
-                        <div class="flex items-center gap-1.5">
-                            <button onclick="fetchCloudRecords()" title="重新整理雲端資料" class="text-xs text-slate-600 bg-slate-100 hover:bg-slate-200 p-1.5 rounded-lg transition">
-                                <i class="fa-solid fa-rotate-right"></i>
-                            </button>
-                            <button onclick="exportToCSV()" class="text-xs text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1.5 rounded-lg border border-emerald-200 transition flex items-center gap-1 font-medium">
-                                <i class="fa-solid fa-file-csv"></i> 匯出 CSV
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- List Container -->
-                    <div class="flex-grow overflow-y-auto max-h-[420px] space-y-2.5 pr-1" id="record-list">
-                        <!-- Items rendered via JavaScript -->
-                    </div>
-                </div>
-            </div>
-
+  <main class="max-w-6xl mx-auto px-4">
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
+        <div>
+          <p class="text-slate-500 text-sm font-medium mb-1">已登記總人數</p>
+          <p class="text-3xl font-bold text-slate-800" id="stat-total">0 <span class="text-base font-normal text-slate-500">人</span></p>
         </div>
+        <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 text-xl">
+          <i class="fa-solid fa-users"></i>
+        </div>
+      </div>
 
-    </main>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
+        <div>
+          <p class="text-amber-600 text-sm font-medium mb-1">葷食登記數</p>
+          <p class="text-3xl font-bold text-amber-600" id="stat-meat">0 <span class="text-base font-normal text-slate-500">份</span></p>
+        </div>
+        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 text-xl">
+          <i class="fa-solid fa-drumstick-bite"></i>
+        </div>
+      </div>
 
-    <!-- Clean Footer -->
-    <footer class="bg-white border-t border-slate-200/80 py-3 mt-6 text-center text-xs text-slate-400">
-        <p>臺南市永康區永康國民小學 教職員午餐登記系統</p>
-    </footer>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
+        <div>
+          <p class="text-emerald-600 text-sm font-medium mb-1">素食登記數</p>
+          <p class="text-3xl font-bold text-emerald-600" id="stat-veg">0 <span class="text-base font-normal text-slate-500">份</span></p>
+        </div>
+        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+      </div>
+    </div>
 
-    <!-- Config Modal -->
-    <div id="config-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 relative">
-            <button onclick="toggleConfigModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <div class="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
+        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-emerald-600"></i> 填寫登記表單
+        </h2>
+
+        <form id="lunch-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+          
+          <div>
+            <label class="block text-slate-700 font-medium mb-2"><i class="fa-regular fa-calendar"></i> 登記日期 *</label>
+            <input type="date" id="form-date" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-700 font-medium mb-2"><i class="fa-regular fa-user"></i> 教職員姓名 *</label>
+              <input type="text" id="form-name" placeholder="請輸入姓名" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-700 font-medium mb-2"><i class="fa-solid fa-location-dot"></i> 用餐地點 *</label>
+              <input type="text" id="form-location" placeholder="例如：301教室、教務處" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-700 font-medium mb-2"><i class="fa-solid fa-bowl-food"></i> 飲食種類 *</label>
+            <div class="grid grid-cols-2 gap-4">
+              <label class="cursor-pointer border-2 border-slate-200 p-4 rounded-xl flex flex-col items-center gap-2 transition hover:border-emerald-500 has-[:checked]:border-emerald-600 has-[:checked]:bg-emerald-50/30">
+                <input type="radio" name="diet" value="葷食" checked class="hidden">
+                <i class="fa-solid fa-drumstick-bite text-2xl text-amber-600"></i>
+                <span class="font-bold text-slate-700">葷食</span>
+              </label>
+              <label class="cursor-pointer border-2 border-slate-200 p-4 rounded-xl flex flex-col items-center gap-2 transition hover:border-emerald-500 has-[:checked]:border-emerald-600 has-[:checked]:bg-emerald-50/30">
+                <input type="radio" name="diet" value="素食" class="hidden">
+                <i class="fa-solid fa-leaf text-2xl text-emerald-600"></i>
+                <span class="font-bold text-slate-700">素食</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-700 font-medium mb-2"><i class="fa-regular fa-comment"></i> 特殊需求 / 備註</label>
+            <input type="text" id="form-note" placeholder="可不填" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+
+          <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> 送出登記
+          </button>
+
+        </form>
+      </div>
+
+      <div class="lg:col-span-5 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-emerald-600"></i> 最新登記動態
+          </h2>
+          <div class="flex items-center gap-2">
+            <button onclick="fetchData()" class="text-slate-400 hover:text-emerald-600 p-2 rounded-lg transition" title="重新整理">
+              <i class="fa-solid fa-rotate"></i>
             </button>
-            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-link text-emerald-600"></i>
-                Google 試算表串接設定
-            </h3>
-
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Web App URL</label>
-                    <input type="url" id="gas-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
-                </div>
-
-                <div class="flex justify-end gap-2 pt-1">
-                    <button onclick="toggleConfigModal()" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:bg-slate-100 text-xs">取消</button>
-                    <button onclick="saveGASUrl()" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm">儲存設定</button>
-                </div>
-            </div>
+            <button onclick="exportCSV()" class="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+              <i class="fa-solid fa-file-csv"></i> 匯出 CSV
+            </button>
+          </div>
         </div>
+
+        <div id="records-list" class="space-y-3 flex-1 overflow-y-auto max-h-[500px]">
+          </div>
+      </div>
+
     </div>
+  </main>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-2.5 rounded-xl shadow-lg transition-all transform translate-y-20 opacity-0 flex items-center gap-2.5 z-50 text-sm">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-msg">登記成功！</span>
+  <div id="settings-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">
+      <h3 class="text-lg font-bold mb-4 text-slate-800">⚙️ Web App URL 串接設定</h3>
+      <input type="text" id="gas-url-input" class="w-full p-3 border rounded-xl mb-4 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+      <div class="flex justify-end gap-2">
+        <button onclick="toggleSettingsModal()" class="px-4 py-2 text-slate-500 hover:bg-slate-100 rounded-lg">取消</button>
+        <button onclick="saveSettings()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700">儲存</button>
+      </div>
     </div>
+  </div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // State management
-        let records = JSON.parse(localStorage.getItem('ykes_lunch_records') || '[]');
-        let gasUrl = localStorage.getItem('ykes_gas_url') || '';
-        let selectedDietType = '葷食';
+  <script>
+    // 預設將 GAS 部署網址寫死在代碼中，解決跨瀏覽器無設定問題
+    const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbwcvIHMTBXsB88UIRgEjuf1eoJQCUkG5DnLp4lB1EL4KtuREbAunqtHkYAAeX0hncxQ/exec';
+    
+    let gasUrl = localStorage.getItem('ykes_lunch_records_url') || DEFAULT_GAS_URL;
+    let recordsData = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('reg-date').value = today;
-            document.getElementById('gas-url-input').value = gasUrl;
-            selectDiet('葷食');
-            
-            // Initial local render
-            renderRecords();
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('form-date').valueAsDate = new Date();
+      document.getElementById('gas-url-input').value = gasUrl;
+      fetchData();
+    });
 
-            // Fetch from Cloud if URL exists
-            if (gasUrl) {
-                fetchCloudRecords();
-            }
+    function toggleSettingsModal() {
+      const modal = document.getElementById('settings-modal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    function saveSettings() {
+      gasUrl = document.getElementById('gas-url-input').value.trim();
+      localStorage.setItem('ykes_lunch_records_url', gasUrl);
+      toggleSettingsModal();
+      fetchData();
+    }
+
+    async function fetchData() {
+      const listEl = document.getElementById('records-list');
+      listEl.innerHTML = `<div class="text-center py-8 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-2xl"></i><p class="mt-2 text-sm">載入資料中...</p></div>`;
+
+      if (!gasUrl) {
+        listEl.innerHTML = `<div class="text-center py-8 text-slate-400"><p class="text-sm">尚未設定 GAS 串接網址</p></div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(gasUrl);
+        const data = await res.json();
+        recordsData = data || [];
+        renderUI();
+      } catch (err) {
+        console.error(err);
+        listEl.innerHTML = `<div class="text-center py-8 text-rose-500"><i class="fa-solid fa-circle-exclamation text-2xl"></i><p class="mt-2 text-sm">讀取失敗，請確認網路或 GAS 設定</p></div>`;
+      }
+    }
+
+    function renderUI() {
+      const listEl = document.getElementById('records-list');
+      
+      // 計算統計數字並即時同步頂部卡片
+      let meat = 0, veg = 0;
+      recordsData.forEach(item => {
+        if (item.diet === '素食') veg++;
+        else meat++;
+      });
+
+      document.getElementById('stat-total').innerText = recordsData.length;
+      document.getElementById('stat-meat').innerText = meat;
+      document.getElementById('stat-veg').innerText = veg;
+
+      if (recordsData.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 text-slate-400">
+            <i class="fa-regular fa-folder-open text-4xl mb-2"></i>
+            <p class="text-sm">今天尚無登記紀錄</p>
+          </div>`;
+        return;
+      }
+
+      listEl.innerHTML = recordsData.map(item => `
+        <div class="p-4 rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${item.diet === '素食' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
+              ${item.diet === '素食' ? '素' : '葷'}
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-800">${item.name}</span>
+                <span class="text-xs bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full"><i class="fa-solid fa-location-dot"></i> ${item.location}</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">${item.note ? '💬 ' + item.note : ''}</p>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400">${item.timestamp || ''}</span>
+        </div>
+      `).join('');
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 送出中...`;
+
+      const formData = {
+        date: document.getElementById('form-date').value,
+        name: document.getElementById('form-name').value.trim(),
+        location: document.getElementById('form-location').value.trim(),
+        diet: document.querySelector('input[name="diet"]:checked').value,
+        note: document.getElementById('form-note').value.trim()
+      };
+
+      try {
+        await fetch(gasUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
         });
 
-        // Fetch records from Google Apps Script
-        async function fetchCloudRecords() {
-            if (!gasUrl) return;
+        // 重置表單並重新抓取雲端資料
+        document.getElementById('form-name').value = '';
+        document.getElementById('form-location').value = '';
+        document.getElementById('form-note').value = '';
 
-            try {
-                const res = await fetch(gasUrl);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data)) {
-                        records = data;
-                        localStorage.setItem('ykes_lunch_records', JSON.stringify(records));
-                        renderRecords();
-                    }
-                }
-            } catch (err) {
-                console.error('Fetch cloud records error:', err);
-            }
-        }
+        setTimeout(() => {
+          fetchData();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 送出登記`;
+        }, 1200);
 
-        // Diet Selector Visual
-        function selectDiet(type) {
-            selectedDietType = type;
-            const meatCard = document.getElementById('option-meat');
-            const vegCard = document.getElementById('option-veg');
+      } catch (err) {
+        alert('提交失敗：' + err.message);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 送出登記`;
+      }
+    }
 
-            if (type === '葷食') {
-                meatCard.classList.add('meal-card-selected');
-                vegCard.classList.remove('meal-card-selected');
-            } else {
-                vegCard.classList.add('meal-card-selected');
-                meatCard.classList.remove('meal-card-selected');
-            }
-        }
-
-        // Toggle Config Modal
-        function toggleConfigModal() {
-            const modal = document.getElementById('config-modal');
-            modal.classList.toggle('hidden');
-        }
-
-        // Save GAS URL
-        function saveGASUrl() {
-            const input = document.getElementById('gas-url-input').value.trim();
-            gasUrl = input;
-            localStorage.setItem('ykes_gas_url', gasUrl);
-            toggleConfigModal();
-            showToast('已更新 Google 試算表串接設定！', 'success');
-            fetchCloudRecords();
-        }
-
-        // Form Submit Handler
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submit-btn');
-            const originalBtnContent = submitBtn.innerHTML;
-
-            const now = new Date();
-            const submitTime = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
-
-            // Gather Data
-            const formData = {
-                action: 'add',
-                id: Date.now().toString(),
-                date: document.getElementById('reg-date').value,
-                name: document.getElementById('teacher-name').value.trim(),
-                location: document.getElementById('dining-location').value.trim(),
-                diet: selectedDietType,
-                note: document.getElementById('meal-note').value.trim(),
-                timestamp: submitTime
-            };
-
-            // Loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>處理中...</span>';
-
-            // Send to Google Apps Script if URL provided
-            if (gasUrl) {
-                try {
-                    await fetch(gasUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                    });
-                } catch (err) {
-                    console.error('GAS Submission Error:', err);
-                }
-            }
-
-            // Save locally for instant view
-            records.unshift(formData);
-            localStorage.setItem('ykes_lunch_records', JSON.stringify(records));
-
-            // Reset Form fields (keep date)
-            document.getElementById('teacher-name').value = '';
-            document.getElementById('dining-location').value = '';
-            document.getElementById('meal-note').value = '';
-
-            // Restore Button & Toast
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnContent;
-            
-            showToast('登記成功！已儲存您的午餐選擇。', 'success');
-            renderRecords();
-
-            // Refresh from cloud after short delay
-            setTimeout(fetchCloudRecords, 1500);
-        }
-
-        // Cancel / Delete Record
-        async function cancelRecord(id) {
-            if (!confirm('確定要取消此筆午餐登記嗎？')) return;
-
-            const itemToCancel = records.find(r => r.id === id);
-
-            // Filter out the deleted item locally
-            records = records.filter(r => r.id !== id);
-            localStorage.setItem('ykes_lunch_records', JSON.stringify(records));
-
-            // Sync cancellation with Google Apps Script
-            if (gasUrl && itemToCancel) {
-                try {
-                    await fetch(gasUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            action: 'cancel',
-                            id: id,
-                            name: itemToCancel.name
-                        })
-                    });
-                } catch (err) {
-                    console.error('GAS Cancel Error:', err);
-                }
-            }
-
-            showToast('已成功取消登記！', 'success');
-            renderRecords();
-            setTimeout(fetchCloudRecords, 1500);
-        }
-
-        // Render List & Update Stats
-        function renderRecords() {
-            const listEl = document.getElementById('record-list');
-
-            // Update stats
-            const total = records.length;
-            const meatCount = records.filter(r => r.diet === '葷食').length;
-            const vegCount = records.filter(r => r.diet === '素食').length;
-
-            document.getElementById('stat-total').innerHTML = `${total} <span class="text-sm font-normal text-slate-500">人</span>`;
-            document.getElementById('stat-meat').innerHTML = `${meatCount} <span class="text-sm font-normal text-slate-500">份</span>`;
-            document.getElementById('stat-veg').innerHTML = `${vegCount} <span class="text-sm font-normal text-slate-500">份</span>`;
-
-            if (records.length === 0) {
-                listEl.innerHTML = `
-                    <div class="text-center py-12 text-slate-400">
-                        <i class="fa-regular fa-folder-open text-3xl mb-2"></i>
-                        <p class="text-xs">尚無登記紀錄</p>
-                    </div>
-                `;
-                return;
-            }
-
-            listEl.innerHTML = records.map(item => `
-                <div class="p-3 bg-slate-50 hover:bg-emerald-50/50 rounded-xl border border-slate-200/80 transition flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full flex items-center justify-center ${item.diet === '葷食' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'} font-bold text-xs">
-                            ${item.diet === '葷食' ? '<i class="fa-solid fa-drumstick-bite"></i>' : '<i class="fa-solid fa-leaf"></i>'}
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-sm text-slate-800">${escapeHtml(item.name)}</span>
-                                <span class="text-xs text-slate-500"><i class="fa-solid fa-location-dot mr-1 text-slate-400"></i>${escapeHtml(item.location)}</span>
-                            </div>
-                            <p class="text-[11px] text-slate-400 mt-0.5"><i class="fa-regular fa-calendar mr-1"></i>${item.date}</p>
-                            ${item.note ? `<p class="text-xs text-slate-600 mt-0.5">「${escapeHtml(item.note)}」</p>` : ''}
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="text-right">
-                            <span class="text-xs font-bold ${item.diet === '葷食' ? 'text-amber-600 bg-amber-50 border-amber-200' : 'text-emerald-600 bg-emerald-50 border-emerald-200'} px-2 py-0.5 rounded-md border">
-                                ${item.diet}
-                            </span>
-                            <p class="text-[10px] text-slate-400 mt-0.5">${item.timestamp}</p>
-                        </div>
-                        <button onclick="cancelRecord('${item.id}')" title="取消登記" class="text-slate-300 hover:text-rose-500 p-1.5 rounded-lg hover:bg-rose-50 transition">
-                            <i class="fa-solid fa-trash-can text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Export to CSV
-        function exportToCSV() {
-            if (records.length === 0) {
-                showToast('目前尚無資料可供匯出！', 'error');
-                return;
-            }
-
-            let csvContent = "\uFEFF登記日期,教職員姓名,用餐地點,飲食習慣,特殊需求,送出時間\n";
-            records.forEach(r => {
-                csvContent += `"${r.date}","${r.name}","${r.location}","${r.diet}","${r.note || ''}","${r.timestamp}"\n`;
-            });
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `永康國小午餐登記統計.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // Helper: Toast notification
-        function showToast(msg, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-msg');
-            const toastIcon = document.getElementById('toast-icon');
-
-            toastMsg.innerText = msg;
-            if (type === 'success') {
-                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-base';
-            } else {
-                toastIcon.className = 'fa-solid fa-triangle-exclamation text-amber-400 text-base';
-            }
-
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        // Helper: Escape HTML
-        function escapeHtml(text) {
-            return String(text)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
+    function exportCSV() {
+      if (recordsData.length === 0) return alert('目前沒有資料可匯出');
+      let csv = '\uFEFF時間,日期,姓名,地點,飲食,備註\n';
+      recordsData.forEach(r => {
+        csv += `"${r.timestamp || ''}","${r.date || ''}","${r.name || ''}","${r.location || ''}","${r.diet || ''}","${r.note || ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `午餐登記_${new Date().toISOString().slice(0,10)}.csv`;
+      link.click();
+    }
+  </script>
 </body>
 </html>
